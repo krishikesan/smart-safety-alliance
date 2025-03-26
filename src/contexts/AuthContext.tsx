@@ -104,7 +104,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signUp = async (email: string, password: string, firstName: string, lastName: string) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signUp({
+      // Set autoconfirm to true to skip the email verification for now
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -117,10 +118,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (error) throw error;
       
-      toast({
-        title: "Account created",
-        description: "Please check your email to confirm your account.",
-      });
+      if (data.session) {
+        // User is signed in immediately (email confirmation disabled in Supabase)
+        toast({
+          title: "Account created",
+          description: "You've been successfully signed in to your new account.",
+        });
+      } else {
+        // Email confirmation required
+        toast({
+          title: "Account created",
+          description: "Please check your email to confirm your account before signing in.",
+        });
+      }
     } catch (error: any) {
       toast({
         title: "Error creating account",
