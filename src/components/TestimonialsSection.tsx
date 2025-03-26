@@ -8,19 +8,19 @@ const testimonials = [
   {
     name: 'Rajiv Kumar',
     role: 'Police Commissioner, Delhi',
-    content: 'CrimeSpot has revolutionized how we allocate resources. With data-driven insights, we've seen a 24% reduction in response times to emergency calls.',
+    content: "CrimeSpot has revolutionized how we allocate resources. With data-driven insights, we've seen a 24% reduction in response times to emergency calls.",
     avatar: '',
   },
   {
     name: 'Priya Sharma',
     role: 'Community Watch Leader',
-    content: 'The real-time alerts have empowered our community to be more vigilant. We feel safer knowing that we're working together with law enforcement.',
+    content: "The real-time alerts have empowered our community to be more vigilant. We feel safer knowing that we're working together with law enforcement.",
     avatar: '',
   },
   {
     name: 'Arun Patel',
     role: 'Urban Safety Researcher',
-    content: 'The predictive analytics capabilities are impressive. I've observed firsthand how accurate the crime forecasting can be in identifying potential hotspots.',
+    content: "The predictive analytics capabilities are impressive. I've observed firsthand how accurate the crime forecasting can be in identifying potential hotspots.",
     avatar: '',
   },
 ];
