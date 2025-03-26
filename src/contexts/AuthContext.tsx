@@ -11,6 +11,8 @@ type AuthContextType = {
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+  updatePassword: (password: string) => Promise<void>;
   loading: boolean;
   isAuthenticated: boolean;
 };
@@ -104,7 +106,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signUp = async (email: string, password: string, firstName: string, lastName: string) => {
     try {
       setLoading(true);
-      // Set autoconfirm to true to skip the email verification for now
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -112,6 +113,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           data: {
             first_name: firstName,
             last_name: lastName,
+            profile_completed: false,
           },
         },
       });
@@ -121,8 +123,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (data.session) {
         // User is signed in immediately (email confirmation disabled in Supabase)
         toast({
-          title: "Account created",
-          description: "You've been successfully signed in to your new account.",
+          title: "Account created successfully",
+          description: "Welcome to CrimeSpot. Please complete your profile to continue.",
         });
       } else {
         // Email confirmation required
@@ -138,6 +140,56 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         variant: "destructive",
       });
       console.error('Error signing up:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resetPassword = async (email: string) => {
+    try {
+      setLoading(true);
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/reset-password',
+      });
+
+      if (error) throw error;
+      
+      toast({
+        title: "Password reset email sent",
+        description: "Check your email for a link to reset your password.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error resetting password",
+        description: error.message,
+        variant: "destructive",
+      });
+      console.error('Error resetting password:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updatePassword = async (password: string) => {
+    try {
+      setLoading(true);
+      const { error } = await supabase.auth.updateUser({
+        password,
+      });
+
+      if (error) throw error;
+      
+      toast({
+        title: "Password updated",
+        description: "Your password has been successfully updated.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error updating password",
+        description: error.message,
+        variant: "destructive",
+      });
+      console.error('Error updating password:', error);
     } finally {
       setLoading(false);
     }
@@ -170,6 +222,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     signIn,
     signUp,
     signOut,
+    resetPassword,
+    updatePassword,
     loading,
     isAuthenticated: !!user,
   };

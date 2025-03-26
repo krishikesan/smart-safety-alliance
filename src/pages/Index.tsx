@@ -5,6 +5,8 @@ import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
 import HeatmapDemo from '@/components/HeatmapDemo';
 import CooperationSection from '@/components/CooperationSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import StatisticsSection from '@/components/StatisticsSection';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -43,11 +45,13 @@ const Index = () => {
       
       <main className="pt-16"> {/* Added padding-top to account for fixed navbar */}
         <HeroSection />
+        <StatisticsSection />
         <FeaturesSection />
         <HeatmapDemo />
         <CooperationSection />
+        <TestimonialsSection />
         
-        <section id="safety" className="py-20 bg-primary text-white text-center">
+        <section id="safety" className="py-20 bg-gradient-to-r from-primary to-primary/80 text-white text-center">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Join the CrimeSpot Initiative</h2>
             <p className="text-white/90 mb-10 text-lg">
