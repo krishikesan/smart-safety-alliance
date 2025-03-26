@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -19,11 +18,11 @@ import {
   Shield
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const DashboardLayout = () => {
   const { isAuthenticated, user, signOut, profile, loading } = useAuth();
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
 
   if (loading) {
     return (
