@@ -9,7 +9,158 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      crime_reports: {
+        Row: {
+          category: string
+          description: string
+          id: string
+          location: unknown
+          media_urls: string[] | null
+          metadata: Json | null
+          reported_at: string | null
+          reported_by: string | null
+          severity: number
+          status: string
+        }
+        Insert: {
+          category: string
+          description: string
+          id?: string
+          location: unknown
+          media_urls?: string[] | null
+          metadata?: Json | null
+          reported_at?: string | null
+          reported_by?: string | null
+          severity: number
+          status?: string
+        }
+        Update: {
+          category?: string
+          description?: string
+          id?: string
+          location?: unknown
+          media_urls?: string[] | null
+          metadata?: Json | null
+          reported_at?: string | null
+          reported_by?: string | null
+          severity?: number
+          status?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          badge_number: string | null
+          contact_number: string | null
+          created_at: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          precinct: string | null
+          role: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          badge_number?: string | null
+          contact_number?: string | null
+          created_at?: string | null
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          precinct?: string | null
+          role?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          badge_number?: string | null
+          contact_number?: string | null
+          created_at?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          precinct?: string | null
+          role?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      resource_deployments: {
+        Row: {
+          deployed_at: string | null
+          id: string
+          last_updated: string | null
+          location: unknown
+          officer_id: string | null
+          resource_type: string
+          status: string | null
+        }
+        Insert: {
+          deployed_at?: string | null
+          id?: string
+          last_updated?: string | null
+          location: unknown
+          officer_id?: string | null
+          resource_type: string
+          status?: string | null
+        }
+        Update: {
+          deployed_at?: string | null
+          id?: string
+          last_updated?: string | null
+          location?: unknown
+          officer_id?: string | null
+          resource_type?: string
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_deployments_officer_id_fkey"
+            columns: ["officer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      safety_alerts: {
+        Row: {
+          area_affected: unknown | null
+          created_at: string | null
+          created_by: string | null
+          description: string
+          end_time: string | null
+          id: string
+          radius: number | null
+          severity: string
+          start_time: string | null
+          title: string
+        }
+        Insert: {
+          area_affected?: unknown | null
+          created_at?: string | null
+          created_by?: string | null
+          description: string
+          end_time?: string | null
+          id?: string
+          radius?: number | null
+          severity: string
+          start_time?: string | null
+          title: string
+        }
+        Update: {
+          area_affected?: unknown | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string
+          end_time?: string | null
+          id?: string
+          radius?: number | null
+          severity?: string
+          start_time?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
